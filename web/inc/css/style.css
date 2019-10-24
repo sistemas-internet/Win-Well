@@ -1,0 +1,10 @@
+body {
+    background-image: url("../img/fundo.jpg");
+    font-family: roboto;
+}
+
+.borda{
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    margin-top: 50px;
+}

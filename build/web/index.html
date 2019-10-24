@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Agenda de contatos</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        
+        <!-- Chamada do CSS -->
+        <link rel="stylesheet" href="inc/css/style.css">
+        
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Alterna navegação">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand">Agenda</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="Controle?acao=listar">Listar todos<span class="sr-only">(Página atual)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="cadastrar.html">Cadastrar<span class="sr-only">(Página atual)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="sair.jsp">Sair<span class="sr-only">(Página atual)</span></a>
+                </li>                
+              </ul>
+              <form class="form-inline my-2 my-lg-0" action="Controle" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" name="nome" aria-label="Pesquisar">
+                <button class="btn btn-outline-success my-2 my-sm-0" name="acao" value="pesquisar" type="submit">Pesquisar</button>
+              </form>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="row">
+                    <div class="col-md-6 borda">
+                        <div class="col-md-12 text-center">
+                            Login
+                        </div>
+                        <form action="Controle" method="post">
+                            <label class="col-md-12">
+                                E-mail: <input class="form-control" type="email" name="email">
+                            </label> 
+                            <label class="col-md-12">
+                                Senha: <input class="form-control" type="password" name="senha">
+                            </label>
+                            <label class="col-md-12 text-center">
+                                <input class="btn btn-primary" type="submit" name="acao" value="logar">
+                            </label>
+                        </form>
+                    </div>
+                    <div class="col-md-6 borda">
+                        <div class="col-md-12 text-center">
+                            Cadastrar
+                        </div>
+                        <form method="post" action="Controle">
+                            <label class="col-md-12">
+                                Nome: <input class="form-control" type="text" name="nome">
+                            </label>
+                            <label class="col-md-12">
+                                E-mail: <input class="form-control" type="email" name="email">
+                            </label> 
+                            <label class="col-md-12">
+                                Senha: <input class="form-control" type="password" name="senha">
+                            </label>
+                            <label class="col-md-12 text-center">
+                                <button class="btn btn-primary" type="submit" name="acao" value="cadastrar_user">Cadastrar</button>
+                            </label>
+                        </form>                        
+                    </div>
+            </div>
+                </div>                
+            </div>
+        </div>
+
+            
+    </body>
+</html>
