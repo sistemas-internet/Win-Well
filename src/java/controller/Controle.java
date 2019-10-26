@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.PessoaDAO;
 import model.CadastrarDAO;
 import model.LoginDAO;
@@ -23,7 +24,7 @@ public class Controle extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         // Verifica se o botão Pesquisar foi acionado
         if (request.getParameter("acao").contains("logar")) {
             // Tratamento de erro para a conexão com o banco de dados
@@ -33,7 +34,7 @@ public class Controle extends HttpServlet {
 
                 /**
                  * Atribui os valores do fomulário ao objeto com o símbolo de %
-                 * para o operador LIKE
+                
                  */
                 l.setEmail(request.getParameter("email"));
                 l.setSenha(request.getParameter("senha"));
@@ -46,7 +47,9 @@ public class Controle extends HttpServlet {
 
                 // Recebe os registros e coloca na lista
                 logins = lDao.pesquisar(l);
-                
+
+                HttpSession sessao = request.getSession();
+
                 // Verifica se algum registro foi encontrado
                 if (logins.isEmpty()) {
                     // Criar um atributo mensagem para o objeto request
@@ -58,8 +61,13 @@ public class Controle extends HttpServlet {
                 } else {
                     // Criar um atributo para o objeto request
                     request.setAttribute("listaPessoas", logins);
+                        
+                    //Sessão de logado
+                    sessao.setAttribute("login", "logado");
+                    sessao.setAttribute("id", "13");
                     
-// Redireciona para a página de mensagem 
+
+                    // Redireciona para a página de mensagem 
                     RequestDispatcher redireciona = request.getRequestDispatcher("Controle?acao=listar");
                     redireciona.forward(request, response);
                 }
@@ -77,7 +85,7 @@ public class Controle extends HttpServlet {
                 }
             }
         }
-        
+
         // Verifica se o botão de cadastrar foi acionado
         if (request.getParameter("acao").contains("cadastrar_user")) {
 
@@ -86,7 +94,7 @@ public class Controle extends HttpServlet {
 
             // Atribui os valores do fomulário ao objeto criado
             c.setNome(request.getParameter("nome"));
-            c.setEmail(request.getParameter("telefone"));
+            c.setEmail(request.getParameter("email"));
             c.setSenha(request.getParameter("senha"));
 
             // Tratamento de erro para a conexão com o banco de dados
@@ -120,7 +128,7 @@ public class Controle extends HttpServlet {
             RequestDispatcher redireciona = request.getRequestDispatcher("mensagem.jsp");
             redireciona.forward(request, response);
         }
-        
+
         // Verifica se o botão de cadastrar foi acionado
         if (request.getParameter("acao").contains("cadastrar")) {
 
@@ -128,6 +136,7 @@ public class Controle extends HttpServlet {
             Pessoa p = new Pessoa();
 
             // Atribui os valores do fomulário ao objeto criado
+            p.setId_vinculado(Integer.parseInt(request.getParameter("id_vinculado")));
             p.setNome(request.getParameter("nome"));
             p.setTelefone(request.getParameter("telefone"));
             p.setCep(Integer.parseInt(request.getParameter("cep")));
@@ -136,8 +145,6 @@ public class Controle extends HttpServlet {
             p.setCidade(request.getParameter("cidade"));
             p.setEstado(request.getParameter("estado"));
             p.setEmail(request.getParameter("email"));
-            
-            
 
             // Tratamento de erro para a conexão com o banco de dados
             try {
@@ -183,6 +190,7 @@ public class Controle extends HttpServlet {
                  * para o operador LIKE
                  */
                 p.setNome("%" + request.getParameter("nome") + "%");
+                p.setId_vinculado(Integer.parseInt(request.getParameter("id_vinculado")));
 
                 // Cria uma instância do model - PessoaDAO
                 PessoaDAO pDao = new PessoaDAO();
@@ -192,7 +200,7 @@ public class Controle extends HttpServlet {
 
                 // Recebe os registros e coloca na lista
                 pessoas = pDao.pesquisar(p);
-                
+
                 // Verifica se algum registro foi encontrado
                 if (pessoas.isEmpty()) {
                     // Criar um atributo mensagem para o objeto request
@@ -372,8 +380,8 @@ public class Controle extends HttpServlet {
                 p.setLogradouro(request.getParameter("logradouro"));
                 p.setBairro(request.getParameter("bairro"));
                 p.setCidade(request.getParameter("cidade"));
-                p.setEstado(request.getParameter("estado"));                
-                
+                p.setEstado(request.getParameter("estado"));
+
                 // Cria um instância do model (PessoaDAO)
                 PessoaDAO pDao = new PessoaDAO();
 
@@ -386,7 +394,7 @@ public class Controle extends HttpServlet {
                  * utilizando uma escrita no cabeçalho HTTP
                  */
                 response.setHeader("Refresh", "5; url=\"Controle?acao=listar\"");
-                
+
                 // Cria o atributo mensagem para o objeto request 
                 request.setAttribute("mensagem", mensagem);
 

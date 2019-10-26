@@ -54,7 +54,7 @@ public class CadastrarDAO {
             conexao.close();
 
             // Retorna uma mensagem de sucesso
-            return "Registro incluído com sucesso!";
+            return "Registro incluído com sucesso! <a href='index.html'>Clique aqui para fazer login</a>";
 
         } catch (SQLException e) {
 

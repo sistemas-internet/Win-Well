@@ -40,21 +40,22 @@ public class PessoaDAO {
     public String inserir(Pessoa p) throws SQLException {
 
         // Instrução SQL para inclusão do registro
-        String sql = "INSERT INTO pessoa (nome, telefone, cep, logradouro, bairro, cidade, estado, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pessoa (id_usuario, nome, telefone, cep, logradouro, bairro, cidade, estado, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             try ( // Prepara a instrução SQL para ser enviada ao banco de dados
                     PreparedStatement ps = conexao.prepareStatement(sql)) {
 
                 // Inclui os valores a serem atribuidos à instrução SQL
-                ps.setString(1, p.getNome());
-                ps.setString(2, p.getTelefone());
-                ps.setInt(3, p.getCep());
-                ps.setString(4, p.getLogradouro());
-                ps.setString(5, p.getBairro());
-                ps.setString(6, p.getCidade());
-                ps.setString(7, p.getEstado());
-                ps.setString(8, p.getEmail());
+                ps.setInt(1, p.getId_vinculado());
+                ps.setString(2, p.getNome());
+                ps.setString(3, p.getTelefone());
+                ps.setInt(4, p.getCep());
+                ps.setString(5, p.getLogradouro());
+                ps.setString(6, p.getBairro());
+                ps.setString(7, p.getCidade());
+                ps.setString(8, p.getEstado());
+                ps.setString(9, p.getEmail());
 
                 // Executa a instrução de inclusão do registro
                 ps.execute();
@@ -222,7 +223,7 @@ public class PessoaDAO {
 
         // Instrução SQL para recuperar os registros
         String sql = "SELECT * FROM pessoa "
-                + "WHERE nome like ? ORDER BY nome ASC;";
+                + "WHERE nome like ? AND id_usuario = ? ORDER BY nome ASC;";
 
         // Lista para receber os registros recuperados
         List lstPessoas = new ArrayList();
@@ -231,6 +232,7 @@ public class PessoaDAO {
                 PreparedStatement ps = conexao.prepareStatement(sql)) {
             // Inclui o valor informado a ser atribuido à instrução SQL
             ps.setString(1, p.getNome());
+            ps.setInt(2, p.getId_vinculado());
 
             try ( // Objeto que armazenará os dados recuperados (recordSet)
                     ResultSet rs = ps.executeQuery()) {

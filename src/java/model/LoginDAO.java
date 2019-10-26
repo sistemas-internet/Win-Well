@@ -32,7 +32,7 @@ public class LoginDAO {
     /**
      * Método Pesquisar - Realiza a pesquisa de um registro específico pelo ID
      *
-     * @param p Objeto Pessoa
+     * @param l Objeto Pessoa
      * @return List Lista com registros encontrados
      * @throws java.sql.SQLException
      */
@@ -42,13 +42,14 @@ public class LoginDAO {
         String sql = "SELECT * FROM usuarios where email = ? AND senha = ?";
 
         // Lista para receber os registros recuperados
-        List lstPessoas = new ArrayList();
+        List lstLogin = new ArrayList();
 
         try ( // Prepara a instrução SQL para ser enviada ao banco de dados
                 PreparedStatement ps = conexao.prepareStatement(sql)) {
             // Inclui o valor informado a ser atribuido à instrução SQL
             ps.setString(1, l.getEmail());
             ps.setString(2, l.getSenha());
+            
 
             try ( // Objeto que armazenará os dados recuperados (recordSet)
                     ResultSet rs = ps.executeQuery()) {
@@ -60,14 +61,14 @@ public class LoginDAO {
                     // Cria um objeto Pessoa (bean)
                     l = new Login();
 
-                    // Atribui ao objeto Pessoa os valores retornados do banco
+                    // Atribui ao objeto login os valores retornados do banco
+                    l.setId(Integer.parseInt(rs.getString("id")));
                     l.setEmail(rs.getString("email"));
-                    l.setEmail(rs.getString("senha"));
-                    l.setEmail(rs.getString("nome"));
+                    l.setNome(rs.getString("nome"));
                     
 
                     // Adiciona o objeto Pessoa na lista de pessoas
-                    lstPessoas.add(l);
+                    lstLogin.add(l);
                 }
             }
         }
@@ -76,6 +77,6 @@ public class LoginDAO {
         conexao.close();
 
         // Retorna a lista com as pessoas encontradas
-        return lstPessoas;
+        return lstLogin;
     }
 }

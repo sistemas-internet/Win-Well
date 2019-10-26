@@ -1,3 +1,13 @@
+<%
+    String id_vinculado = (String) session.getAttribute("id");
+
+    String login = (String) session.getAttribute("login");
+            
+    if(login == null){
+        RequestDispatcher redireciona = request.getRequestDispatcher("sair.jsp");
+        redireciona.forward(request, response);
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,55 +45,38 @@
                 </li>                
               </ul>
               <form class="form-inline my-2 my-lg-0" action="Controle" method="post">
+                <input type="hidden" name="id_vinculado" value="<%= id_vinculado %>">
                 <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" name="nome" aria-label="Pesquisar">
                 <button class="btn btn-outline-success my-2 my-sm-0" name="acao" value="pesquisar" type="submit">Pesquisar</button>
               </form>
             </div>
         </nav>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <div class="row">
-                    <div class="col-md-6 borda">
-                        <div class="col-md-12 text-center">
-                            Login
-                        </div>
-                        <form action="Controle" method="post">
-                            <label class="col-md-12">
-                                E-mail: <input class="form-control" type="email" name="email">
-                            </label> 
-                            <label class="col-md-12">
-                                Senha: <input class="form-control" type="password" name="senha">
-                            </label>
-                            <label class="col-md-12 text-center">
-                                <input class="btn btn-primary" type="submit" name="acao" value="logar">
-                            </label>
-                        </form>
-                    </div>
-                    <div class="col-md-6 borda">
-                        <div class="col-md-12 text-center">
-                            Cadastrar
-                        </div>
-                        <form method="post" action="Controle">
-                            <label class="col-md-12">
-                                Nome: <input class="form-control" type="text" name="nome">
-                            </label>
-                            <label class="col-md-12">
-                                E-mail: <input class="form-control" type="email" name="email">
-                            </label> 
-                            <label class="col-md-12">
-                                Senha: <input class="form-control" type="password" name="senha">
-                            </label>
-                            <label class="col-md-12 text-center">
-                                <button class="btn btn-primary" type="submit" name="acao" value="cadastrar_user">Cadastrar</button>
-                            </label>
-                        </form>                        
-                    </div>
-            </div>
-                </div>                
-            </div>
-        </div>
 
-            
+        <!-- Painel da Pesquisa -->
+        <div class="container col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title h1">Pesquisa</h3>
+                </div>
+                <div class="panel-body">
+                    <form name="form_mvc" class="form-horizontal" action="Controle" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="inputNome" class="col-lg-2 control-label">Nome</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputNome" name="nome" placeholder="Digite um nome ou parte dele" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-6 col-lg-offset-2">
+                                    <button type="submit" name="acao" class="btn btn-primary" value="pesquisar">Pesquisar</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>        
+                </div>      
+            </div>                
+        </div>
     </body>
 </html>
+

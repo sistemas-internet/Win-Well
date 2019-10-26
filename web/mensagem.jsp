@@ -1,3 +1,8 @@
+<%
+    String id_vinculado = (String) session.getAttribute("id");
+
+    String login = (String) session.getAttribute("login");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,16 +34,24 @@
                   <a class="nav-link" href="Controle?acao=listar">Listar todos<span class="sr-only">(Página atual)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="cadastrar.html">Cadastrar<span class="sr-only">(Página atual)</span></a>
+                  <a class="nav-link" href="cadastrar.jsp">Cadastrar<span class="sr-only">(Página atual)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="sair.jsp">Sair<span class="sr-only">(Página atual)</span></a>
                 </li>                
               </ul>
+              <%
+                if(login == "logado"){
+              %>
               <form class="form-inline my-2 my-lg-0" action="Controle" method="post">
+                <input type="hidden" name="id_vinculado" value="<%= id_vinculado %>">
                 <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" name="nome" aria-label="Pesquisar">
                 <button class="btn btn-outline-success my-2 my-sm-0" name="acao" value="pesquisar" type="submit">Pesquisar</button>
               </form>
+              <%
+                }
+               %>
+              
             </div>
         </nav>
 
