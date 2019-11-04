@@ -6,7 +6,6 @@ public class Pessoa implements Serializable {
 
     // Atributos da classe
     private int id;
-    private int id_vinculado;
     private String nome;
     private String telefone;
     private int cep;
@@ -15,12 +14,12 @@ public class Pessoa implements Serializable {
     private String cidade;
     private String estado;
     private String email;
+    private int id_vinculado;
     
     // Método construtor
     public Pessoa() {
     }
-    
-    
+
     public int getId_vinculado() {
         return id_vinculado;
     }
@@ -28,7 +27,7 @@ public class Pessoa implements Serializable {
     public void setId_vinculado(int id_vinculado) {
         this.id_vinculado = id_vinculado;
     }
-    
+
     // Métodos getters e setters
     public int getCep() {
         return cep;

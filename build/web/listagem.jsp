@@ -1,5 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="model.bean.Pessoa"%>
+<%@page import="java.util.ArrayList"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String id_vinculado = (String) session.getAttribute("id");
+    Integer id_vinculado = (Integer) session.getAttribute("id");
 
     String login = (String) session.getAttribute("login");
             
@@ -8,10 +12,6 @@
         redireciona.forward(request, response);
     }
 %>
-<%@page import="java.util.List"%>
-<%@page import="model.bean.Pessoa"%>
-<%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -39,9 +39,6 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="Controle?acao=listar">Listar todos<span class="sr-only">(Página atual)</span></a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="cadastrar.jsp">Cadastrar<span class="sr-only">(Página atual)</span></a>
                 </li>
                 <li class="nav-item">
@@ -49,7 +46,7 @@
                 </li>                
               </ul>
               <form class="form-inline my-2 my-lg-0" action="Controle" method="post">
-                <input type="hidden" name="id_vinculado" value="<%= id_vinculado %>">
+                <input type="hidden" value="<%= id_vinculado %>" name="id_vinculado">
                 <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" name="nome" aria-label="Pesquisar">
                 <button class="btn btn-outline-success my-2 my-sm-0" name="acao" value="pesquisar" type="submit">Pesquisar</button>
               </form>

@@ -34,7 +34,7 @@ public class Controle extends HttpServlet {
 
                 /**
                  * Atribui os valores do fomulário ao objeto com o símbolo de %
-                
+                 *
                  */
                 l.setEmail(request.getParameter("email"));
                 l.setSenha(request.getParameter("senha"));
@@ -43,15 +43,14 @@ public class Controle extends HttpServlet {
                 LoginDAO lDao = new LoginDAO();
 
                 // Cria uma lista para receber os registros retornados
-                List logins = new ArrayList();
-
+                //List logins = new ArrayList();
                 // Recebe os registros e coloca na lista
-                logins = lDao.pesquisar(l);
+                Login us = lDao.pesquisar(l);
 
                 HttpSession sessao = request.getSession();
 
                 // Verifica se algum registro foi encontrado
-                if (logins.isEmpty()) {
+                if (us == null) {
                     // Criar um atributo mensagem para o objeto request
                     request.setAttribute("mensagem", "Dados incorretos!");
 
@@ -60,15 +59,14 @@ public class Controle extends HttpServlet {
                     redireciona.forward(request, response);
                 } else {
                     // Criar um atributo para o objeto request
-                    request.setAttribute("listaPessoas", logins);
-                        
+                    //request.setAttribute("listaPessoas", logins);
+
                     //Sessão de logado
                     sessao.setAttribute("login", "logado");
-                    sessao.setAttribute("id", "13");
-                    
+                    sessao.setAttribute("id", us.getId());
 
                     // Redireciona para a página de mensagem 
-                    RequestDispatcher redireciona = request.getRequestDispatcher("Controle?acao=listar");
+                    RequestDispatcher redireciona = request.getRequestDispatcher("Controle?acao=listar&id_vinculado="+us.getId());
                     redireciona.forward(request, response);
                 }
 
@@ -136,7 +134,6 @@ public class Controle extends HttpServlet {
             Pessoa p = new Pessoa();
 
             // Atribui os valores do fomulário ao objeto criado
-            p.setId_vinculado(Integer.parseInt(request.getParameter("id_vinculado")));
             p.setNome(request.getParameter("nome"));
             p.setTelefone(request.getParameter("telefone"));
             p.setCep(Integer.parseInt(request.getParameter("cep")));
@@ -145,7 +142,7 @@ public class Controle extends HttpServlet {
             p.setCidade(request.getParameter("cidade"));
             p.setEstado(request.getParameter("estado"));
             p.setEmail(request.getParameter("email"));
-
+            p.setId_vinculado(Integer.parseInt(request.getParameter("id_vinculado")));
             // Tratamento de erro para a conexão com o banco de dados
             try {
                 // Cria uma instância do model - PessoaDAO

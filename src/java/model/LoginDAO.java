@@ -36,13 +36,13 @@ public class LoginDAO {
      * @return List Lista com registros encontrados
      * @throws java.sql.SQLException
      */
-    public List<Login> pesquisar(Login l) throws SQLException {
+    public Login pesquisar(Login l) throws SQLException {
 
         // Instrução SQL para recuperar os registros
         String sql = "SELECT * FROM usuarios where email = ? AND senha = ?";
 
         // Lista para receber os registros recuperados
-        List lstLogin = new ArrayList();
+        //List lstLogin = new ArrayList();
 
         try ( // Prepara a instrução SQL para ser enviada ao banco de dados
                 PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -68,7 +68,7 @@ public class LoginDAO {
                     
 
                     // Adiciona o objeto Pessoa na lista de pessoas
-                    lstLogin.add(l);
+                    //lstLogin.add(l);
                 }
             }
         }
@@ -77,6 +77,6 @@ public class LoginDAO {
         conexao.close();
 
         // Retorna a lista com as pessoas encontradas
-        return lstLogin;
+        return l;
     }
 }
