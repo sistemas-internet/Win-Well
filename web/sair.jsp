@@ -5,5 +5,5 @@
 --%>
 <%
     session.invalidate();
-    response.sendRedirect("../Projeto-java/");
+    response.sendRedirect("index.html");
 %>

@@ -66,7 +66,8 @@ public class Controle extends HttpServlet {
                     sessao.setAttribute("id", us.getId());
 
                     // Redireciona para a página de mensagem 
-                    RequestDispatcher redireciona = request.getRequestDispatcher("Controle?acao=listar&id_vinculado="+us.getId());
+                    //RequestDispatcher redireciona = request.getRequestDispatcher("Controle?acao=listar&id_vinculado="+us.getId());
+                    RequestDispatcher redireciona = request.getRequestDispatcher("cadastrar.jsp");
                     redireciona.forward(request, response);
                 }
 
